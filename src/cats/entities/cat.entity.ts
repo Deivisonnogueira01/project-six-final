@@ -1,3 +1,4 @@
+import { Entity, PrimaryGeneratedColumn } from 'typeorm';
 import internal from "stream";
 
 
