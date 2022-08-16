@@ -1,34 +1,48 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { CreateDogDTO } from './dto/dogs.dto';
 import { DogsService } from './dogs.service';
-import { CreateDogDto } from './dto/create-dog.dto';
-import { UpdateDogDto } from './dto/update-dog.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 
 @Controller('dogs')
 export class DogsController {
-  constructor(private readonly dogsService: DogsService) {}
-
-  @Post()
-  create(@Body() createDogDto: CreateDogDto) {
-    return this.dogsService.create(createDogDto);
-  }
+  constructor(private dogsService: DogsService) {}
 
   @Get()
-  findAll() {
+  showMessage(): string {
+    return 'The Dog is on the Table';
+  }
+
+  @Get('/list')
+  findAll(): CreateDogDTO[] {
     return this.dogsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.dogsService.findOne(+id);
+  @Get('/:id')
+  findDog(@Param('id') id: string) {
+    return this.dogsService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDogDto: UpdateDogDto) {
-    return this.dogsService.update(+id, updateDogDto);
+  @Post()
+  createNewDog(@Body() dog: CreateDogDTO): string {
+    this.dogsService.create(dog);
+    return 'A New Dog was Created';
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dogsService.remove(+id);
+  @Put('/:id')
+  update(@Param('id') id: string, @Body() dog: CreateDogDTO) {
+    return this.dogsService.update(id, dog);
+  }
+
+  @Delete('/:id')
+  delete(@Param('id') id: string): string {
+    this.dogsService.remove(id);
+    return 'The Dog was Removed';
   }
 }

@@ -1,26 +1,34 @@
+import { CreateCatDTO } from './dto/cats.dto';
 import { Injectable } from '@nestjs/common';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { UpdateCatDto } from './dto/update-cat.dto';
 
 @Injectable()
 export class CatsService {
-  create(createCatDto: CreateCatDto) {
-    return 'This action adds a new cat';
+  private cats: CreateCatDTO[] = [];
+
+  create(cat: CreateCatDTO) {
+    this.cats.push(cat);
   }
 
-  findAll() {
-    return `This action returns all cats`;
+  findAll(): CreateCatDTO[] {
+    return this.cats;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cat`;
+  findOne(id: string) {
+    return this.cats.filter((obj: CreateCatDTO) => obj.id === id);
   }
 
-  update(id: number, updateCatDto: UpdateCatDto) {
-    return `This action updates a #${id} cat`;
+  remove(id: string) {
+    const cats_remove = this.cats.filter((obj: CreateCatDTO) => obj.id != id);
+    this.cats = cats_remove;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cat`;
+  update(id: string, createCatDTO: CreateCatDTO) {
+    this.cats.map((obj: CreateCatDTO) => {
+      if (obj.id === id) {
+        obj.name = createCatDTO.name;
+        obj.age = createCatDTO.age;
+      }
+    });
+    return this.findOne(id);
   }
 }

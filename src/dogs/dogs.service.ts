@@ -1,26 +1,34 @@
+import { CreateDogDTO } from './dto/dogs.dto';
 import { Injectable } from '@nestjs/common';
-import { CreateDogDto } from './dto/create-dog.dto';
-import { UpdateDogDto } from './dto/update-dog.dto';
 
 @Injectable()
 export class DogsService {
-  create(createDogDto: CreateDogDto) {
-    return 'This action adds a new dog';
+  private dogs: CreateDogDTO[] = [];
+
+  create(dog: CreateDogDTO) {
+    this.dogs.push(dog);
   }
 
-  findAll() {
-    return `This action returns all dogs`;
+  findAll(): CreateDogDTO[] {
+    return this.dogs;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dog`;
+  findOne(id: string) {
+    return this.dogs.filter((obj: CreateDogDTO) => obj.id === id);
   }
 
-  update(id: number, updateDogDto: UpdateDogDto) {
-    return `This action updates a #${id} dog`;
+  remove(id: string) {
+    const dogs_remove = this.dogs.filter((obj: CreateDogDTO) => obj.id !== id);
+    this.dogs = dogs_remove;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} dog`;
+  update(id: string, createDogDTO: CreateDogDTO) {
+    this.dogs.map((obj: CreateDogDTO) => {
+      if (obj.id === id) {
+        obj.name = createDogDTO.name;
+        obj.age = createDogDTO.age;
+      }
+    });
+    return this.findOne(id);
   }
 }
