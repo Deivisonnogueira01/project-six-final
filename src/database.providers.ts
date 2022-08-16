@@ -1,26 +1,26 @@
-import { CreateDogDTO } from './dogs/dto/dogs.dto';
-import { CreateCatDTO } from './cats/dto/cats.dto';
 import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
   {
-    provide: 'CATS_REPOSITORY',
+    provide: 'DATA_SOURCE',
     useFactory: async () => {
       const dataSource = new DataSource({
         type: 'mysql',
-        host: 'six-mysql',
+        host: 'localhost', // nome do serviço do Docker
         port: 3306,
         username: 'root',
         password: 'admin',
-        database: 'sixdatabase',
-        entities: [CreateCatDTO, CreateDogDTO],
+        database: 'test', // nome do BD
+        entities: [
+        //   CreateCatDto, CreateDogDto
+        ],
         synchronize: true,
-        logging: true,
 
-        ///Docker 
       });
 
       return dataSource.initialize();
     },
   },
+
+   // Docker Compose trab
 ];
