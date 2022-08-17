@@ -1,6 +1,6 @@
 import { CreateCat } from './entities/cat.entity';
 import { CatsService } from './cats.service';
-import { CreateCatDTO } from './dto/cats.dto';
+import { CreateCatDto } from './dto/create-cat.dto';
 import {
   Body,
   Controller,
@@ -31,13 +31,13 @@ export class CatsController {
   }
 
   @Post()
-  createNewCat(@Body() cat: CreateCatDTO): string {
+  createNewCat(@Body() cat: CreateCatDto): string {
     this.catsService.create(cat);
     return 'A New Cat was Created';
   }
 
   @Put('/:id')
-  updateCat(@Param('id') id: string, @Body() cat: CreateCatDTO) {
+  updateCat(@Param('id') id: string, @Body() cat: CreateCatDto) {
     return this.catsService.update(id, cat);
   }
 

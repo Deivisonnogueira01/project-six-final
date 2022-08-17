@@ -1,5 +1,6 @@
-import { CreateDogDTO } from './dogs/dto/dogs.dto';
-import { CreateCatDTO } from './cats/dto/cats.dto';
+
+import { CreateCatDto } from 'src/cats/dto/create-cat.dto';
+import { CreateDogDTO } from 'src/dogs/dto/create-dog.dto';
 import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
@@ -13,7 +14,7 @@ export const databaseProviders = [
         username: 'root',
         password: 'admin',
         database: 'animals',
-        entities: [CreateCatDTO, CreateDogDTO],
+        entities: [CreateCatDto, CreateDogDTO],
         synchronize: true,
         logging: true,
 
