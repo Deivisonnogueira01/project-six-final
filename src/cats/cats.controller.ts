@@ -1,3 +1,4 @@
+import { CreateCat } from './entities/cat.entity';
 import { CatsService } from './cats.service';
 import { CreateCatDTO } from './dto/cats.dto';
 import {
@@ -20,7 +21,7 @@ export class CatsController {
   }
 
   @Get('/list')
-  findAll(): CreateCatDTO[] {
+  findAll(): Promise<CreateCat[]> {
     return this.catsService.findAll();
   }
 

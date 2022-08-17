@@ -10,7 +10,7 @@ export const databaseProviders = [
         port: 3306,
         username: 'root',
         password: 'admin',
-        database: 'test', // nome do BD
+        database: 'animals', // nome do BD
         entities: [
         //   CreateCatDto, CreateDogDto
         ],

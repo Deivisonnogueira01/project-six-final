@@ -12,7 +12,7 @@ export const databaseProviders = [
         port: 3306,
         username: 'root',
         password: 'admin',
-        database: 'sixdatabase',
+        database: 'animals',
         entities: [CreateCatDTO, CreateDogDTO],
         synchronize: true,
         logging: true,

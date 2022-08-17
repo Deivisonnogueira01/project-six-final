@@ -1,9 +1,7 @@
-import { Entity, PrimaryGeneratedColumn } from 'typeorm';
-import internal from "stream";
-
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Cat {
+export class CreateCat {
 
     @PrimaryGeneratedColumn()
     id: number;

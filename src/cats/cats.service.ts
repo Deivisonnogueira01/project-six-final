@@ -1,16 +1,22 @@
 import { CreateCatDTO } from './dto/cats.dto';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateCat } from './entities/cat.entity';
 
 @Injectable()
 export class CatsService {
   private cats: CreateCatDTO[] = [];
 
+     constructor(
+        @Inject('CATS_REPOSITORY')
+        private catsRepository : Repository<CreateCat>;
+     ){}
+
   create(cat: CreateCatDTO) {
     this.cats.push(cat);
   }
 
-  findAll(): CreateCatDTO[] {
-    return this.cats;
+  findAll(): Promise<CreateCat[]> {
+    return this.catsRepository.find();
   }
 
   findOne(id: string) {
