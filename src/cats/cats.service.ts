@@ -14,7 +14,7 @@ export class CatsService {
 
   create(cat: CreateCatDto) {
     this.cats.push(cat);
-    this.catsRepository.save();
+    this.catsRepository.save(CreateCat);
   }
 
   findAll(): Promise<CreateCat[]> {
@@ -39,4 +39,6 @@ export class CatsService {
     });
     return this.findOne(id);
   }
+
+   ///CREATE, DELETE, UPDATE AND SAVE + mysql and Docker 
 }
