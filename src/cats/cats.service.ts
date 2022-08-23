@@ -1,44 +1,41 @@
-
-import { Inject, Injectable } from '@nestjs/common';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { CreateCat } from './entities/cat.entity';
+import { Cat } from './entity/create.cat';
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CatsService {
-  private cats: CreateCatDto[] = [];
+  constructor(
+    @InjectRepository(Cat)
+    private catsRepository: Repository<Cat>,
+  ) {}
 
-     constructor(
-        @Inject('CATS_REPOSITORY')
-        private catsRepository : Repository<CreateCat>;
-     ){}
-
-  create(cat: CreateCatDto) {
-    this.cats.push(cat);
-    this.catsRepository.save(CreateCat);
+  create(cat: Cat): void {
+    this.catsRepository.save(cat);
   }
 
-  findAll(): Promise<CreateCat[]> {
-    return this.catsRepository.find();
+  async findAll(): Promise<Cat[]> {
+    return await this.catsRepository.find();
   }
 
-  findOne(id: string) {
-    return this.cats.filter((obj: CreateCatDto) => obj.id === id);
+  async findOne(id: string): Promise<Cat> {
+    return await this.catsRepository.findOneBy({ id });
   }
 
-  remove(id: string) {
-    const cats_remove = this.cats.filter((obj: CreateCatDto) => obj.id != id);
-    this.cats = cats_remove;
+  async remove(id: string) {
+    return await this.catsRepository.delete({ id });
   }
 
-  update(id: string, createCatDTO: CreateCatDto) {
-    this.cats.map((obj: CreateCatDto ) => {
-      if (obj.id === id) {
-        obj.name = createCatDTO.name;
-        obj.age = createCatDTO.age;
-      }
-    });
-    return this.findOne(id);
+  async update(catId: string, cat: Cat): Promise<Cat> {
+    this.catsRepository.update(
+      {
+        id: catId,
+      },
+      {
+        name: cat.name,
+        age: cat.age,
+      },
+    );
+    return this.findOne(catId);
   }
-
-   ///CREATE, DELETE, UPDATE AND SAVE + mysql and Docker 
 }

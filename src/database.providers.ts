@@ -1,4 +1,4 @@
-import { DataSource } from 'typeorm';
+/*import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
   {
@@ -23,4 +23,4 @@ export const databaseProviders = [
   },
 
    // Docker Compose trab
-];
+];*/
