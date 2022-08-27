@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats.controller';
@@ -10,6 +11,8 @@ import { Cat } from './entity/create.cat';
   controllers: [CatsController],
   providers: [CatsService], // [...catsProviders, CatsService]
 })
-export class CatsModule {}
+export class CatsModule {
+  
+}
 
 // install typeOrm

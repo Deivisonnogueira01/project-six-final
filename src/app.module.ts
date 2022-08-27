@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Dog } from './dogs/entity/create.dog';
 import { Cat } from './cats/entity/create.cat';
 import { Module } from '@nestjs/common';
